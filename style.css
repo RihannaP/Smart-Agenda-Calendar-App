@@ -249,6 +249,44 @@ td.active {
     border-radius: 50%;
 }
 
+/* General Button Styles */
+button {
+    background: #E74C3C; /* Red theme */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    margin: 10px;
+}
+select {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+select:hover {
+    border-color: #E74C3C;
+}
+
+
+.event {
+    font-size: 12px;
+    color: red;
+    display: block;
+}
+.commemorative-day {
+    background-color: yellow;
+    font-weight: bold;
+}
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .calendar-container {

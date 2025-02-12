@@ -51,6 +51,9 @@ window.onload = function() {
     // Set up event listeners for the previous and next buttons
     previousBtn.addEventListener("click", () => { previousMonthBtn(); });
     nextBtn.addEventListener("click", () => { nextMonthBtn(); });
+
+    document.getElementById().addEventListener("click", () => { previousMonthBtn(); })
+    document.getElementById().addEventListener("click", () => { nextMonthBtn(); })
 };
 
 // Set up the year and month selectors

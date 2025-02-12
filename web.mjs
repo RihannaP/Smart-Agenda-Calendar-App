@@ -1,6 +1,6 @@
 
-import { monthgrid, } from "./common.mjs";
-import daysData from "./days.json" with { type: "json" };
+import { monthGrid, getEventsForMonth, findEventForDay } from "./common.mjs";
+
 
 window.onload = function() {
     renderCalendar()    
@@ -25,12 +25,17 @@ document.body.appendChild(container);
 ////////////// CALENDAR////////////
 
 
-function renderCalendar(){
-    let grid = monthgrid(currentYear, currentMonth)   
-    let calendarTableHTML = ""
-    calendarTableHTML = `
+function renderCalendar() {
+    let grid = monthGrid(currentYear, currentMonth);
+    let eventsForMonth = getEventsForMonth(currentYear, currentMonth);
+    let calendarTableHTML = `
+        <nav class="navigation">
+        <button>Prev</button>
         <h2>${months[currentMonth]} ${currentYear}</h2>
-
+        <button>Next</button>
+        </nav>
+        <div>
+        
         <table border="1">
             <thead>
                 <tr>
@@ -43,30 +48,46 @@ function renderCalendar(){
                     <th>Sunday</th>
                 </tr>
             </thead>
-        <tbody>
-    `
-    
-    grid.forEach(week =>{
-        calendarTableHTML += `<tr>`
-        week.forEach((day) =>{
-            calendarTableHTML += `
-                <td class="day">${day || ""}</td>
-                `;
-        })
-        calendarTableHTML += `</tr>`
-    })
-    calendarTableHTML+= `</body></table>`
+            <tbody>
+    `;
+
+    grid.forEach(week => {
+        calendarTableHTML += "<tr>";
+        week.forEach(day => {
+            let eventName = "";
+            let eventClass = "";
+
+            if (day) {
+                let event = findEventForDay(eventsForMonth, currentYear, currentMonth, day);
+                
+                if (event) {
+                    eventName = `<br><span class="event">${event.name}</span>`;
+                    eventClass = 'class="commemorative-day"';// highlight class
+                } 
+            }
+         
+            calendarTableHTML += `<td ${eventClass}>${day || ""} ${eventName}</td>`;
+        });          
+        calendarTableHTML += "</tr>";
+    });
+
+    calendarTableHTML += "</tbody></table></div>";
+
     calendar.innerHTML = calendarTableHTML;
 }
+
+
 
 ////////////// BUTTON////////////
 
 let previousBtn = document.createElement('button')
+  //  previousBtn.classList.add("nav-btn");
     previousBtn.innerHTML = "Prev"
     document.body.appendChild(previousBtn);
     previousBtn.addEventListener("click", ()=> {previousMonthBtn()})
 
 let nextBtn =document.createElement ('button')
+  //  nextBtn.classList.add("nav-btn");
     nextBtn.innerHTML = "Next"
     document.body.appendChild(nextBtn); 
     nextBtn.addEventListener('click', ()=>{nextMonthBtn(currentYear, currentMonth)})// adds an event listener to the button 
@@ -130,8 +151,59 @@ monthSelect.addEventListener('change', function() {
     renderCalendar();
 });
 
+/////////////////////////////////////////
+
+async function fetchWeather() {
+    const apiKey = '99afc92573fa4e288f215504251102'; // Replace with your OpenWeatherMap API key
+    const city = 'London'; // Replace with your desired city
+    const units = 'metric'; // You can use 'imperial' for Fahrenheit or 'metric' for Celsius
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (data.main) {
+            // Extract the temperature and weather description
+            const temperature = data.main.temp;
+            const description = data.weather[0].description;
+            updateWeather(temperature, description);
+        } else {
+            console.error("Weather data not found");
+        }
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+    }
+}
+
+// Update the weather information in the sidebar
+function updateWeather(temperature, description) {
+    const weatherContainer = document.querySelector('.weather');
+    if (weatherContainer) {
+        weatherContainer.innerHTML = `
+            <p>${temperature}°C</p>
+            <p>${description.toUpperCase()}</p>
+        `;
+    }
+}
 
 
+let sidebar = document.createElement("div");
+sidebar.classList.add("sidebar");
+sidebar.innerHTML = `
+    <div class="weather">
+        <p>12°C</p>
+        <p>PARTLY SUNNY</p>
+    </div>
+    <div class="tasks">
+        <div class="task">09:00 - Send a message to James</div>
+        <div class="task">11:00 - Visit a Neil bar</div>
+        <div class="task">15:00 - Make a dinner for Carl</div>
+        <script type="module" src="script.js"></script>
+    <script type="module" src="storage.js"></script>
+    </div>
+`;
+container.appendChild(sidebar);
 
 
-export{renderCalendar, }
+export{renderCalendar}
