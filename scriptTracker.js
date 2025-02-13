@@ -179,9 +179,9 @@ function displayAgenda(userId){
        <table border="1">
          <thead>
            <tr>
-             <th>Topic</th>
-             <th>Revision Date</th>
-             <th>Actions</th>
+             <th class="hTabale">Topic</th>
+             <th class="hTabale">Revision Date</th>
+             <th class="hTabale">Actions</th>
            </tr>
          </thead>
          <tbody>

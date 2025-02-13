@@ -1,5 +1,5 @@
 
-import { monthGrid, getEventsForMonth, findEventForDay } from "./common.mjs";
+import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTaskForDay } from "./common.mjs";
 import { loadSecond } from "./scriptTracker.js";
 
 window.onload = function() {
@@ -29,6 +29,7 @@ document.body.appendChild(container);
 function renderCalendar() {
     let grid = monthGrid(currentYear, currentMonth);
     let eventsForMonth = getEventsForMonth(currentYear, currentMonth);
+    let taskForMonth = getTaskForMonth(currentMonth)
     let calendarTableHTML = `
         <nav class="navigation">
         <button id="prevBtn">Prev</button>
@@ -57,23 +58,31 @@ function renderCalendar() {
         week.forEach(day => {
             let eventName = "";
             let eventClass = "";
+            let taskClass ="";
+            let taskName ="";
 
             if (day) {
                 let event = findEventForDay(eventsForMonth, currentYear, currentMonth, day);
+                let task = findTaskForDay(taskForMonth, currentYear, currentMonth, day)
+                
                 
                 if (event) {
                     eventName = `<br><span class="event">${event.name}</span>`;
                     eventClass = 'class="commemorative-day"';// highlight class
                 } 
+                if(task){
+                    taskName = `<br><span class="taskDay">${task.topic}</span>`;
+                    taskClass = 'class="task-day"';// highlight class
+                }
             }
          
-            calendarTableHTML += `<td ${eventClass}>${day || ""} ${eventName}</td>`;
+            calendarTableHTML += `<td ${eventClass}${taskClass}>${day || ""} ${eventName} ${taskName}</td>`;
         });          
         calendarTableHTML += "</tr>";
     });
 
     calendarTableHTML += `</tbody></table></div>
-        <nav>
+        <nav class="navigation">
         <select id="selectY"></select>
         <select id="selectM"></select>
         </nav>
@@ -243,7 +252,7 @@ sidebar.innerHTML = `
         
         <!-- Agenda Display -->
         <div id="agenda-container">
-            <h2>Agenda</h2>
+            <p class="weather">Agenda</p>
             <div id="agenda"></div>
         </div>
     </div>
