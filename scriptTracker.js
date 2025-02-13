@@ -44,10 +44,11 @@ function populateUserDropdown() {
   userSelect.appendChild(defaultOption);
 
   // Populate dropdown with user options
+  let userName =["Rihanna", "Karla", "Fatima", "Leili", "Amy"]
   users.forEach((userId) => {
     const option = document.createElement("option");
     option.value = userId;
-    option.textContent = `User ${userId}`;
+    option.textContent = `${userName[userId-1]}`;
     userSelect.appendChild(option);
   });
 }
