@@ -2,7 +2,7 @@
 
 import { getData, addData, getUserIds, clearData } from "./storage.js";
 
-window.onload = function () {
+export function loadSecond () {
   populateUserDropdown();
   defaultDatePicker()
   // Add event listener for user selection
@@ -237,4 +237,4 @@ function deleteTopic(userId, index) {
   }
 }
 
-export { calculateFutureDates, formatDate, deleteTopic, handleUserSelection };
+export { calculateFutureDates, formatDate, deleteTopic, handleUserSelection, populateUserDropdown, defaultDatePicker };

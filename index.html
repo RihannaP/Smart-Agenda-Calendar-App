@@ -4,9 +4,39 @@
         <script type="module" src="common.mjs"></script>
         <!-- <script type="module" src="scriptsweb/main.mjs"></script> -->
         <script type="module" src="web.mjs"></script>
-
+        <script type="module" src="scriptTracker.js"></script>
+        <script type="module" src="storage.js"></script>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div class="agendaside">
+            <!-- User Selection -->
+        <label for="user-select">Select User:</label>
+        <select id="user-select">
+            <!-- Options will be populated dynamically -->
+        </select>
+        <!-- Add Topic Form -->
+        <h2>Add New Topic</h2>
+        <form id="add-topic-form">
+            <label for="topic-name">Topic Name:</label>
+            <input type="text" id="topic-name" name="topic-name" placeholder="write your topic" required />
+
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="start-date" required />
+
+            <button type="submit">Submit</button>
+        </form>
+        <br><br>
+        <hr>
+        <div>
+          <button type="submit" id="delete-agenda">Delete All Agenda</button>
+
+        </div>
+        <!-- Agenda Display -->
+        <!-- <div id="agenda-container">
+            <h2>Agenda</h2>
+            <div id="agenda"></div>
+        </div> -->
+        </div>
     </body>
 </html>

@@ -1,9 +1,10 @@
 
 import { monthGrid, getEventsForMonth, findEventForDay } from "./common.mjs";
-
+import { loadSecond } from "./scriptTracker.js";
 
 window.onload = function() {
     renderCalendar()    
+    loadSecond()
 }
 
 let currentMonth = new Date().getMonth() // between 0 to 11
@@ -30,9 +31,9 @@ function renderCalendar() {
     let eventsForMonth = getEventsForMonth(currentYear, currentMonth);
     let calendarTableHTML = `
         <nav class="navigation">
-        <button>Prev</button>
+        <button id="prevBtn">Prev</button>
         <h2>${months[currentMonth]} ${currentYear}</h2>
-        <button>Next</button>
+        <button id="nexBtn">Next</button>
         </nav>
         <div>
         
@@ -71,26 +72,64 @@ function renderCalendar() {
         calendarTableHTML += "</tr>";
     });
 
-    calendarTableHTML += "</tbody></table></div>";
-
+    calendarTableHTML += `</tbody></table></div>
+        <nav>
+        <select id="selectY"></select>
+        <select id="selectM"></select>
+        </nav>
+    `
     calendar.innerHTML = calendarTableHTML;
+
+    document.getElementById("prevBtn").addEventListener("click", ()=> {previousMonthBtn()})
+    document.getElementById("nexBtn").addEventListener("click", ()=> {nextMonthBtn()})
+
+
+
+    let yearSelect = document.getElementById("selectY")
+for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+    let option = document.createElement('option');
+    option.value = i;
+    option.textContent = i;
+    if (i === currentYear) {
+        option.selected = true;
+    }
+    yearSelect.appendChild(option);
+    yearSelect.addEventListener('change', function() {
+        currentYear = parseInt(this.value);
+        renderCalendar();
+    });
 }
 
+let monthSelect = document.getElementById('selectM');
+  months.map((item, index) => {
+    let option = document.createElement('option');
+    option.value = index
+    option.textContent = item
+    if(index === currentMonth){ option.selected = true}
+    monthSelect.append(option);
+})
+monthSelect.addEventListener('change', function() {
+    currentMonth = parseInt(this.value);
+    renderCalendar();
+});
+
+}
 
 
 ////////////// BUTTON////////////
 
-let previousBtn = document.createElement('button')
-  //  previousBtn.classList.add("nav-btn");
-    previousBtn.innerHTML = "Prev"
-    document.body.appendChild(previousBtn);
-    previousBtn.addEventListener("click", ()=> {previousMonthBtn()})
+// let previousBtn = document.createElement('button')
+//   //  previousBtn.classList.add("nav-btn");
+//     previousBtn.innerHTML = "Prev"
+//     document.body.appendChild(previousBtn);
+//     previousBtn.addEventListener("click", ()=> {previousMonthBtn()})
+    
 
-let nextBtn =document.createElement ('button')
-  //  nextBtn.classList.add("nav-btn");
-    nextBtn.innerHTML = "Next"
-    document.body.appendChild(nextBtn); 
-    nextBtn.addEventListener('click', ()=>{nextMonthBtn(currentYear, currentMonth)})// adds an event listener to the button 
+// let nextBtn =document.createElement ('button')
+//   //  nextBtn.classList.add("nav-btn");
+//     nextBtn.innerHTML = "Next"
+//     document.body.appendChild(nextBtn); 
+//     nextBtn.addEventListener('click', ()=>{nextMonthBtn(currentYear, currentMonth)})// adds an event listener to the button 
 
 // Function for moving to previous Month
 function previousMonthBtn(){
@@ -115,41 +154,43 @@ function nextMonthBtn(year, month){// creating the function to move to the next 
 ////////////// SELECTION////////////
 
 //year selection dropdown 
-let yearSelect = document.createElement('select');
-for (let i = currentYear - 10; i <= currentYear + 10; i++) {
-    let option = document.createElement('option');
-    option.value = i;
-    option.textContent = i;
-    if (i === currentYear) {
-        option.selected = true;
-    }
-    yearSelect.appendChild(option);
-}
-document.body.appendChild(yearSelect);
+//let yearSelect = document.createElement('select');
+// let yearSelect = document.getElementById("selectY")
+// for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+//     let option = document.createElement('option');
+//     option.value = i;
+//     option.textContent = i;
+//     if (i === currentYear) {
+//         option.selected = true;
+//     }
+//    // yearSelect.appendChild(option);
+// }
+//document.body.appendChild(yearSelect);
 
 // calendar change when year is changed
-yearSelect.addEventListener('change', function() {
-    currentYear = parseInt(this.value);
-    renderCalendar();
-});
+// yearSelect.addEventListener('change', function() {
+//     currentYear = parseInt(this.value);
+//     renderCalendar();
+// });
 
 
-let monthSelect = document.createElement('select');
+//let monthSelect = document.createElement('select');
 // Array of months as strings
-  months.map((item, index) => {
-    let option = document.createElement('option');
-    option.value = index
-    option.textContent = item
-    if(index === currentMonth){ option.selected = true}
-    monthSelect.append(option);
-})
-document.body.append(monthSelect)
+// let monthSelect = document.getElementById('selectM');
+//   months.map((item, index) => {
+//     let option = document.createElement('option');
+//     option.value = index
+//     option.textContent = item
+//     if(index === currentMonth){ option.selected = true}
+//     monthSelect.append(option);
+// })
+//document.body.append(monthSelect)
 
 // calendar change when Month is changed
-monthSelect.addEventListener('change', function() {
-    currentMonth = parseInt(this.value);
-    renderCalendar();
-});
+// monthSelect.addEventListener('change', function() {
+//     currentMonth = parseInt(this.value);
+//     renderCalendar();
+// });
 
 /////////////////////////////////////////
 
@@ -199,8 +240,12 @@ sidebar.innerHTML = `
         <div class="task">09:00 - Send a message to James</div>
         <div class="task">11:00 - Visit a Neil bar</div>
         <div class="task">15:00 - Make a dinner for Carl</div>
-        <script type="module" src="script.js"></script>
-    <script type="module" src="storage.js"></script>
+        
+        <!-- Agenda Display -->
+        <div id="agenda-container">
+            <h2>Agenda</h2>
+            <div id="agenda"></div>
+        </div>
     </div>
 `;
 container.appendChild(sidebar);
