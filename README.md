@@ -1,94 +1,106 @@
+# Smart Agenda Calendar App
 
-
-# 📅 Days Calendar Project  
-
-### 🚀 Collaborators: [Rihanna](https://github.com/RihannaP) & [Donara](https://github.com/donarbl)  
-
-## 📌 Project Overview  
-Some commemorative days occur annually but on a variable date each year (e.g., **Ada Lovelace Day** falls on the second Tuesday of October). This project dynamically generates a **calendar interface** that displays these special days based on a JSON dataset.  
-
-The goal is to present this data **usefully and interactively** for users, allowing them to navigate through months, select a specific year, and view special commemorative days dynamically.
+🚀 **Author:** Rihanna  
 
 ---
 
-## 🏗 Features  
+## Project Overview
 
-✔️ **Dynamic Calendar UI** - Displays the days of the current month in a structured weekly grid.  
-✔️ **Previous/Next Month Navigation** - Users can navigate through months using buttons.  
-✔️ **Month & Year Selection** - Users can jump directly to a specific month and year.  
-✔️ **Automatic Commemorative Days Calculation** - Special days are calculated dynamically from the JSON file.  
-✔️ **Persistent Date Logic** - Works across different years (e.g., 1900, 2050, etc.).  
-✔️ **No Hardcoded Dates** - Events are dynamically generated.  
-✔️ **Unit Tests** - Ensures code reliability.  
-✔️ **iCal Export (for groups of 2+)** - Generates an `.ics` file for Google Calendar imports.  
-✔️ **Event Descriptions (for groups of 3+)** - Clicking on an event fetches more details.  
+This project combines two useful tools into one interactive application:
+
+1. **Days Calendar** – Displays special commemorative days dynamically.
+2. **Spaced Repetition Tracker** – Helps users track study topics with scheduled revisions.  
+3. **Weather Display (Future API Integration)** – Currently shows static weather data, to be upgraded with live API support.
+
+The goal is to provide an interactive calendar and study tool that keeps users informed about commemorative days, study schedules, and the weather—all in one interface.
 
 ---
 
-## 📁 Project Structure  
+## Features
 
-```
-/calendar-app
- ├── index.html               # Main HTML file
- ├── scripts/
- │   ├── main.js              # Entry point for initialization
- │   ├── buttons.js           # Handles button functionality
- │   ├── selectors.js         # Handles dropdown selectors
- │   ├── calendar.js          # Calendar rendering logic
- │   ├── utils.js             # Helper functions
- ├── styles/
- │   ├── styles.css           # Styling file
- ├── data/
- │   ├── days.json            # JSON file containing commemorative days
- ├── common.mjs               # Shared functions
- ├── README.md                # Project documentation
-```
+### Calendar
+- Dynamic calendar UI showing days of the current month in a weekly grid.
+- Navigate between months and select any year.
+- Automatic calculation of commemorative days from JSON data.
+- Persistent date logic across all years.
+- No hardcoded dates—events are dynamically generated.
+- iCal export support for Google Calendar.
+
+### Spaced Repetition Tracker
+- Track multiple topics and their revision schedules.
+- Automatically calculate upcoming revision dates (1 week, 1 month, 3 months, 6 months, 1 year).
+- Simple agenda-style layout.
+- Persistent storage using LocalStorage.
+- Delete and manage topics dynamically.
+
+### Weather Feature
+- Static weather display integrated into the dashboard.
+- Designed for future API integration to provide real-time weather updates.
+
+### Testing
+- Unit tests for core functions to ensure correctness.
+- Testable using Jest for JavaScript functions.
 
 ---
 
-## 🎯 Usage  
+## Technologies Used
+- HTML, JavaScript
+- LocalStorage for persistent data
+- JSON for events data
+- Node.js `http-server` for local testing
+- Jest for unit testing
 
-### 1️⃣ **Clone the Repository**  
-```sh
-git clone https://github.com/RihannaP/Piscine-Project-Days-Calendar.git
-cd days-calendar
-```
+---
 
-### 2️⃣ **Install Dependencies**  
-```sh
+## Installation & Usage
+
+1️⃣ **Clone the Repository**  
+```bash
+git clone https://github.com/YOUR-USERNAME/merged-calendar-spaced-repetition.git
+cd merged-calendar-spaced-repetition
+2️⃣ Install Dependencies
+
+bash
+Copy code
 npm install
-```
+3️⃣ Run Local Server
 
-### 3️⃣ **Run a Local Server**  
-Since the project uses ES modules, you need an HTTP server to run it:  
-```sh
+bash
+Copy code
 npx http-server
-```
-Then, open `http://localhost:8080` in your browser.
+Then open http://localhost:8080 in your browser.
 
+Using the App
+Calendar
+Navigate months using Previous/Next buttons.
 
----
+Select a specific month and year to jump directly.
 
-## 🔍 Testing  
+Click on an event for more details (if enabled).
 
-Run unit tests using:  
-```sh
+Spaced Repetition
+Add topics and let the app calculate future revision dates.
+
+Delete topics as needed.
+
+View upcoming reviews in an agenda-style layout.
+
+Weather
+View static weather data in the dashboard.
+
+Will be replaced with dynamic API data in future updates.
+
+Running Tests
+bash
+Copy code
 npm test
-```
+Ensures all calendar and spaced repetition functions work as expected.
 
-For **Google Calendar Import Testing**, follow the steps:  
-1. Generate the `.ics` file:
-   ```sh
-   node generate-ical.js > events.ics
-   ```
-2. Import the `.ics` file into Google Calendar.
-3. Verify events appear on the correct dates.
+Key Functions
+calculateFutureDates(newTopic) – Calculates revision dates for a topic.
 
----
+formatDate(dateString) – Converts dates to a human-readable format.
 
+deleteTopic(userId, index) – Removes a topic from LocalStorage.
 
-
-
-🚀 **Happy Coding!** Let us know if you have any questions! 😊  
-```  
-
+displayAgenda(userId) – Renders upcoming revision dates sorted by schedule.
