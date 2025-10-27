@@ -58,9 +58,10 @@ The goal is to provide an interactive calendar and study tool that keeps users i
 ```bash
 git clone https://github.com/YOUR-USERNAME/merged-calendar-spaced-repetition.git
 cd merged-calendar-spaced-repetition
+```bash
 2️⃣ Install Dependencies
 
-```bash
+
 Copy code
 npm install
 3️⃣ Run Local Server
