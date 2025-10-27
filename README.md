@@ -60,7 +60,7 @@ git clone https://github.com/YOUR-USERNAME/merged-calendar-spaced-repetition.git
 cd merged-calendar-spaced-repetition
 2️⃣ Install Dependencies
 
-bash
+```bash
 Copy code
 npm install
 3️⃣ Run Local Server
