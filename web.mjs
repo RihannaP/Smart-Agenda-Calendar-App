@@ -95,19 +95,25 @@ function renderCalendar() {
 
 
     let yearSelect = document.getElementById("selectY")
-for (let i = currentYear - 10; i <= currentYear + 10; i++) {
-    let option = document.createElement('option');
-    option.value = i;
-    option.textContent = i;
-    if (i === currentYear) {
-        option.selected = true;
+    function updateYearSelector() {
+        yearSelect.innerHTML = ""; // Clear existing options
+        const option = document.createElement("option");
+        option.value = currentYear;
+        option.textContent = currentYear;
+        yearSelect.appendChild(option);
     }
-    yearSelect.appendChild(option);
-    yearSelect.addEventListener('change', function() {
-        currentYear = parseInt(this.value);
-        renderCalendar();
+    updateYearSelector()
+    
+    // Handle scroll (mouse wheel)
+    yearSelect.addEventListener("wheel", (event) => {
+        if (event.deltaY < 0) {
+            currentYear++; // Scroll up → Increase
+        } else {
+            currentYear--; // Scroll down → Decrease
+        }
+        updateYearSelector();
+        renderCalendar()
     });
-}
 
 let monthSelect = document.getElementById('selectM');
   months.map((item, index) => {

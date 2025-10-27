@@ -1,6 +1,7 @@
 
 
 import { getData, addData, getUserIds, clearData } from "./storage.js";
+import { renderCalendar } from "./web.mjs";
 
 export function loadSecond () {
   populateUserDropdown();
@@ -64,6 +65,7 @@ function handleUserSelection(event) {
   // If a user is selected, show the static message
   if (selectedUserId) {
     displayAgenda(selectedUserId);
+
   }
   else {
     document.getElementById('agenda').innerHTML = 'Please select a user.';
@@ -97,6 +99,7 @@ function handleTopicSubmission(event) {
 
   // Refresh the agenda display
   displayAgenda(userId);
+  renderCalendar() 
 }
 
 // calculate date one week, one month, three months, six months and one year from the selected date
@@ -215,6 +218,7 @@ function displayAgenda(userId){
       deleteTopic(userId, index);
     });
   });
+  
  }
 
 
@@ -222,6 +226,7 @@ function displayAgenda(userId){
  function handleDeleteAgenda(userId){
     clearData(userId)
     displayAgenda(userId)
+    renderCalendar() 
     alert('Agenda deleted successfully!');
  }
 
@@ -234,6 +239,7 @@ function deleteTopic(userId, index) {
     clearData(userId); 
     addData(userId, agenda);
     displayAgenda(userId);
+    renderCalendar() 
     alert('Topic deleted successfully!');
   }
 }
