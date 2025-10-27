@@ -52,56 +52,33 @@ The goal is to provide an interactive calendar and study tool that keeps users i
 
 ---
 
-## Installation & Usage
 
-1️⃣ **Clone the Repository**  
-```bash
-git clone https://github.com/YOUR-USERNAME/merged-calendar-spaced-repetition.git
-cd merged-calendar-spaced-repetition
-```bash
-2️⃣ Install Dependencies
-
-
-Copy code
-npm install
-3️⃣ Run Local Server
-
-bash
-Copy code
-npx http-server
-Then open http://localhost:8080 in your browser.
-
-Using the App
+**Using the App**
 Calendar
-Navigate months using Previous/Next buttons.
+- Navigate months using Previous/Next buttons.
 
-Select a specific month and year to jump directly.
+- Select a specific month and year to jump directly.
 
-Click on an event for more details (if enabled).
+- Click on an event for more details (if enabled).
 
-Spaced Repetition
-Add topics and let the app calculate future revision dates.
+**Spaced Repetition**
+- Add topics and let the app calculate future revision dates.
 
-Delete topics as needed.
+- Delete topics as needed.
 
-View upcoming reviews in an agenda-style layout.
+- View upcoming reviews in an agenda-style layout.
 
-Weather
-View static weather data in the dashboard.
+**Weather**
+- View static weather data in the dashboard.
 
-Will be replaced with dynamic API data in future updates.
+- Will be replaced with dynamic API data in future updates.
 
-Running Tests
-bash
-Copy code
-npm test
-Ensures all calendar and spaced repetition functions work as expected.
 
-Key Functions
-calculateFutureDates(newTopic) – Calculates revision dates for a topic.
+**Key Functions**
+- calculateFutureDates(newTopic) – Calculates revision dates for a topic.
 
-formatDate(dateString) – Converts dates to a human-readable format.
+- formatDate(dateString) – Converts dates to a human-readable format.
 
-deleteTopic(userId, index) – Removes a topic from LocalStorage.
+- deleteTopic(userId, index) – Removes a topic from LocalStorage.
 
-displayAgenda(userId) – Renders upcoming revision dates sorted by schedule.
+- displayAgenda(userId) – Renders upcoming revision dates sorted by schedule.
