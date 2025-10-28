@@ -3,8 +3,9 @@ import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTas
 import { loadSecond } from "./scriptTracker.js";
 
 window.onload = function() {
-    renderCalendar()    
-    loadSecond()
+    renderCalendar();    
+    loadSecond();
+    fetchWeather();
 }
 
 let currentMonth = new Date().getMonth() // between 0 to 11
@@ -133,19 +134,6 @@ monthSelect.addEventListener('change', function() {
 
 ////////////// BUTTON////////////
 
-// let previousBtn = document.createElement('button')
-//   //  previousBtn.classList.add("nav-btn");
-//     previousBtn.innerHTML = "Prev"
-//     document.body.appendChild(previousBtn);
-//     previousBtn.addEventListener("click", ()=> {previousMonthBtn()})
-    
-
-// let nextBtn =document.createElement ('button')
-//   //  nextBtn.classList.add("nav-btn");
-//     nextBtn.innerHTML = "Next"
-//     document.body.appendChild(nextBtn); 
-//     nextBtn.addEventListener('click', ()=>{nextMonthBtn(currentYear, currentMonth)})// adds an event listener to the button 
-
 // Function for moving to previous Month
 function previousMonthBtn(){
     currentMonth --
@@ -168,69 +156,37 @@ function nextMonthBtn(year, month){// creating the function to move to the next 
 
 ////////////// SELECTION////////////
 
-//year selection dropdown 
-//let yearSelect = document.createElement('select');
-// let yearSelect = document.getElementById("selectY")
-// for (let i = currentYear - 10; i <= currentYear + 10; i++) {
-//     let option = document.createElement('option');
-//     option.value = i;
-//     option.textContent = i;
-//     if (i === currentYear) {
-//         option.selected = true;
+// async function fetchWeather() {
+//   const apiKey = '';
+//   const city = 'London';
+//   const units = 'metric';
+//   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+
+//   try {
+//     const response = await fetch(url);
+//     const data = await response.json();
+
+//     if (data.main) {
+//       const temperature = data.main.temp;
+//       const description = data.weather[0].description;
+//       updateWeather(temperature, description);
+//     } else {
+//       console.error("Weather data not found:", data);
 //     }
-//    // yearSelect.appendChild(option);
+//   } catch (error) {
+//     console.error("Error fetching weather data:", error);
+//   }
 // }
-//document.body.appendChild(yearSelect);
-
-// calendar change when year is changed
-// yearSelect.addEventListener('change', function() {
-//     currentYear = parseInt(this.value);
-//     renderCalendar();
-// });
-
-
-//let monthSelect = document.createElement('select');
-// Array of months as strings
-// let monthSelect = document.getElementById('selectM');
-//   months.map((item, index) => {
-//     let option = document.createElement('option');
-//     option.value = index
-//     option.textContent = item
-//     if(index === currentMonth){ option.selected = true}
-//     monthSelect.append(option);
-// })
-//document.body.append(monthSelect)
-
-// calendar change when Month is changed
-// monthSelect.addEventListener('change', function() {
-//     currentMonth = parseInt(this.value);
-//     renderCalendar();
-// });
-
-/////////////////////////////////////////
 
 async function fetchWeather() {
-    const apiKey = '99afc92573fa4e288f215504251102'; // Replace with your OpenWeatherMap API key
-    const city = 'London'; // Replace with your desired city
-    const units = 'metric'; // You can use 'imperial' for Fahrenheit or 'metric' for Celsius
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
-    
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (data.main) {
-            // Extract the temperature and weather description
-            const temperature = data.main.temp;
-            const description = data.weather[0].description;
-            updateWeather(temperature, description);
-        } else {
-            console.error("Weather data not found");
-        }
-    } catch (error) {
-        console.error("Error fetching weather data:", error);
-    }
+    // ⚡ Temporary simulation to test your code visually
+    const simulatedTemperature = 15.6;
+    const simulatedDescription = "partly cloudy";
+
+    console.log("⚙️ Using simulated weather data...");
+    updateWeather(simulatedTemperature, simulatedDescription);
 }
+
 
 // Update the weather information in the sidebar
 function updateWeather(temperature, description) {
@@ -250,6 +206,7 @@ sidebar.innerHTML = `
     <div class="weather">
         <p>12°C</p>
         <p>PARTLY SUNNY</p>
+        
     </div>
     <div class="tasks">
         <div class="task">09:00 - Send a message to James</div>
