@@ -156,36 +156,36 @@ function nextMonthBtn(year, month){// creating the function to move to the next 
 
 ////////////// SELECTION////////////
 
-// async function fetchWeather() {
-//   const apiKey = '';
-//   const city = 'London';
-//   const units = 'metric';
-//   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
-
-//   try {
-//     const response = await fetch(url);
-//     const data = await response.json();
-
-//     if (data.main) {
-//       const temperature = data.main.temp;
-//       const description = data.weather[0].description;
-//       updateWeather(temperature, description);
-//     } else {
-//       console.error("Weather data not found:", data);
-//     }
-//   } catch (error) {
-//     console.error("Error fetching weather data:", error);
-//   }
-// }
-
 async function fetchWeather() {
-    // ⚡ Temporary simulation to test your code visually
-    const simulatedTemperature = 15.6;
-    const simulatedDescription = "partly cloudy";
+  const apiKey = '25e12fb8caca43ad9e7232800252710';
+  const city = 'London';
+  const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
 
-    console.log("⚙️ Using simulated weather data...");
-    updateWeather(simulatedTemperature, simulatedDescription);
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.current) {
+      const temperature = data.current.temp_c;
+      const description = data.current.condition.text;
+      const iconUrl = `https:${data.current.condition.icon}`;
+      updateWeather(temperature, description, iconUrl);
+    } else {
+      console.error("Weather data not found:", data);
+    }
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
 }
+
+// async function fetchWeather() {
+//     // ⚡ Temporary simulation to test your code visually
+//     const simulatedTemperature = 15.6;
+//     const simulatedDescription = "partly cloudy";
+
+//     console.log("⚙️ Using simulated weather data...");
+//     updateWeather(simulatedTemperature, simulatedDescription);
+// }
 
 
 // Update the weather information in the sidebar
@@ -199,28 +199,52 @@ function updateWeather(temperature, description) {
     }
 }
 
+////////////// Sidebar (Weather/Agenda)////////////
 
 let sidebar = document.createElement("div");
 sidebar.classList.add("sidebar");
-sidebar.innerHTML = `
-    <div class="weather">
-        <p>12°C</p>
-        <p>PARTLY SUNNY</p>
-        
-    </div>
-    <div class="tasks">
-        <div class="task">09:00 - Send a message to James</div>
-        <div class="task">11:00 - Visit a Neil bar</div>
-        <div class="task">15:00 - Make a dinner for Carl</div>
-        
-        <!-- Agenda Display -->
-        <div id="agenda-container">
-            <p class="weather">Agenda</p>
-            <div id="agenda"></div>
-        </div>
-    </div>
-`;
-container.appendChild(sidebar);
 
+// --- Weather ---
+const weatherDiv = document.createElement("div");
+weatherDiv.classList.add("weather");
+sidebar.appendChild(weatherDiv);
+
+// --- Tasks---
+const tasksDiv = document.createElement("div");
+tasksDiv.classList.add("tasks");
+
+const tasks = [
+  "09:00 - Send a message to James",
+  "11:00 - Visit a Neil bar",
+  "15:00 - Make a dinner for Carl"
+];
+
+tasks.forEach(taskText => {
+  const task = document.createElement("div");
+  task.classList.add("task");
+  task.textContent = taskText;
+  tasksDiv.appendChild(task);
+});
+
+// --- Agenda ---
+const agendaContainer = document.createElement("div");
+agendaContainer.id = "agenda-container";
+
+const agendaTitle = document.createElement("p");
+agendaTitle.classList.add("weather");
+agendaTitle.textContent = "Agenda";
+
+const agendaDiv = document.createElement("div");
+agendaDiv.id = "agenda";
+
+
+agendaContainer.appendChild(agendaTitle);
+agendaContainer.appendChild(agendaDiv);
+
+tasksDiv.appendChild(agendaContainer);
+
+sidebar.appendChild(weatherDiv);
+sidebar.appendChild(tasksDiv);
+container.appendChild(sidebar);
 
 export{renderCalendar}
