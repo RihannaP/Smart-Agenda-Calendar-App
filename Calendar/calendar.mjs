@@ -1,6 +1,6 @@
 
 import daysData from "./days.json" with { type: "json" };
-import { getData, addData, getUserIds, clearData } from "./storage.js";
+import { getData, addData, getUserIds, clearData } from "../Tracker/storage.js"
 // Function to generate calendar grid for a given month
 
 function monthGrid(year, month){

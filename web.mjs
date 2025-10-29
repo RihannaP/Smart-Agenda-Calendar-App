@@ -1,6 +1,6 @@
 
-import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTaskForDay } from "./common.mjs";
-import { loadSecond } from "./scriptTracker.js";
+import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTaskForDay } from "./Calendar/calendar.mjs";
+import { loadSecond } from "./Tracker/scriptTracker.js";
 
 window.onload = function() {
     renderCalendar();    

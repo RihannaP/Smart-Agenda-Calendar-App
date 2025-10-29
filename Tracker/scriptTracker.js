@@ -1,7 +1,7 @@
 
 
 import { getData, addData, getUserIds, clearData } from "./storage.js";
-import { renderCalendar } from "./web.mjs";
+import { renderCalendar } from "../web.mjs";
 
 export function loadSecond () {
   populateUserDropdown();
@@ -45,7 +45,7 @@ function populateUserDropdown() {
   userSelect.appendChild(defaultOption);
 
   // Populate dropdown with user options
-  let userName =["Rihanna", "Karla", "Fatima", "Leili", "Amy"]
+  let userName =["Rihanna", "Fatima", "Work", "Personal"]
   users.forEach((userId) => {
     const option = document.createElement("option");
     option.value = userId;
