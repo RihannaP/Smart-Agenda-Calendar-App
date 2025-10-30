@@ -1,6 +1,6 @@
 
-import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTaskForDay } from "./Calendar/calendar.mjs";
-import { loadSecond } from "./Tracker/scriptTracker.js";
+import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTaskForDay } from "./calendar.mjs";
+import { loadSecond } from "../Tracker/scriptTracker.js";
 
 window.onload = function() {
     renderCalendar();    
@@ -35,7 +35,7 @@ function renderCalendar() {
         <nav class="navigation">
         <button id="prevBtn">Prev</button>
         <h2>${months[currentMonth]} ${currentYear}</h2>
-        <button id="nexBtn">Next</button>
+        <button id="nextBtn">Next</button>
         </nav>
         <div>
         
@@ -84,54 +84,42 @@ function renderCalendar() {
 
     calendarTableHTML += `</tbody></table></div>
         <nav class="navigation">
-        <select id="selectY"></select>
-        <select id="selectM"></select>
+        <input type="month" id="selectYM" min="12-2020" max="12-2030"/>
         </nav>
     `
     calendar.innerHTML = calendarTableHTML;
-
+    defaultYMPicker();  
     document.getElementById("prevBtn").addEventListener("click", ()=> {previousMonthBtn()})
-    document.getElementById("nexBtn").addEventListener("click", ()=> {nextMonthBtn()})
-
-
-
-    let yearSelect = document.getElementById("selectY")
-    function updateYearSelector() {
-        yearSelect.innerHTML = ""; // Clear existing options
-        const option = document.createElement("option");
-        option.value = currentYear;
-        option.textContent = currentYear;
-        yearSelect.appendChild(option);
-    }
-    updateYearSelector()
-    
-    // Handle scroll (mouse wheel)
-    yearSelect.addEventListener("wheel", (event) => {
-        if (event.deltaY < 0) {
-            currentYear++; // Scroll up → Increase
-        } else {
-            currentYear--; // Scroll down → Decrease
-        }
-        updateYearSelector();
-        renderCalendar()
-    });
-
-let monthSelect = document.getElementById('selectM');
-  months.map((item, index) => {
-    let option = document.createElement('option');
-    option.value = index
-    option.textContent = item
-    if(index === currentMonth){ option.selected = true}
-    monthSelect.append(option);
-})
-monthSelect.addEventListener('change', function() {
-    currentMonth = parseInt(this.value);
+    document.getElementById("nextBtn").addEventListener("click", ()=> {nextMonthBtn()})
+    document.getElementById("selectYM").addEventListener('change', (e) => {
+    const [year, month] = e.target.value.split('-').map(Number);
+    console.log([month,year])
+    currentYear = year;
+    currentMonth = month - 1; // months are 0-based
     renderCalendar();
 });
 
 }
 
+////////////// Month-Year Selection////////////
 
+
+function defaultYMPicker() {
+  let dateInput = document.getElementById('selectYM');
+  if (dateInput) {
+    const month = String(currentMonth + 1).padStart(2, '0'); // months are 0–based
+
+    dateInput.value = `${currentYear}-${month}`;
+  }
+}
+
+// function defaultYMPicker() {
+//   let dateInput = document.getElementById('selectYM');
+//   if (dateInput) {
+//     const month = String(currentMonth + 1).padStart(2, '0'); // months are 0–based
+//     dateInput.value = `${currentYear}-${month}`;
+//   }
+// }
 ////////////// BUTTON////////////
 
 // Function for moving to previous Month
@@ -154,7 +142,7 @@ function nextMonthBtn(year, month){// creating the function to move to the next 
 }
 
 
-////////////// SELECTION////////////
+////////////// Weather Function////////////
 
 async function fetchWeather() {
   const apiKey = '25e12fb8caca43ad9e7232800252710';

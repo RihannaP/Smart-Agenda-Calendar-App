@@ -1,7 +1,7 @@
 
 
 import { getData, addData, getUserIds, clearData } from "./storage.js";
-import { renderCalendar } from "../web.mjs";
+import { renderCalendar } from "../Calendar/web.mjs";
 
 export function loadSecond () {
   populateUserDropdown();
