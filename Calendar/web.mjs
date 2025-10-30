@@ -83,7 +83,8 @@ function renderCalendar() {
     });
 
     calendarTableHTML += `</tbody></table></div>
-        <nav class="navigation">
+        <nav class="navigation-YM">
+        <label for="selectYM">Select Month and Year:</label>
         <input type="month" id="selectYM" min="12-2020" max="12-2030"/>
         </nav>
     `
