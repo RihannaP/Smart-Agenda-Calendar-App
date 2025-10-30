@@ -44,3 +44,8 @@ export function getUserIds() {
   export function clearData(userId) {
     localStorage.removeItem(`stored-data-user-${userId}`);
   }
+
+  export function clearTopic(userId, agenda) {
+    localStorage.setItem(`stored-data-user-${userId}`, JSON.stringify(agenda));
+
+  }

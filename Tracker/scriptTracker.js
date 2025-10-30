@@ -1,6 +1,6 @@
 
 
-import { getData, addData, getUserIds, clearData } from "./storage.js";
+import { getData, addData, getUserIds, clearData, clearTopic } from "./storage.js";
 import { renderCalendar } from "../Calendar/web.mjs";
 
 export function loadSecond () {
@@ -236,8 +236,7 @@ function deleteTopic(userId, index) {
   
   if (agenda && agenda.length > 0) {
     agenda.splice(index, 1);
-    clearData(userId); 
-    addData(userId, agenda);
+    clearTopic(userId, agenda)
     displayAgenda(userId);
     renderCalendar() 
     alert('Topic deleted successfully!');
