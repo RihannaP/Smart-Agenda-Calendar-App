@@ -1,10 +1,10 @@
 
 import { monthGrid, getEventsForMonth, findEventForDay, getTaskForMonth, findTaskForDay } from "./calendar.mjs";
-import { loadSecond } from "../Tracker/scriptTracker.js";
+import { loadTracker } from "../Tracker/scriptTracker.js";
 
 window.onload = function() {
     renderCalendar();    
-    loadSecond();
+    loadTracker();
     fetchWeather();
 }
 

@@ -3,7 +3,7 @@
 import { getData, addData, getUserIds, clearData, clearTopic } from "./storage.js";
 import { renderCalendar } from "../Calendar/web.mjs";
 
-export function loadSecond () {
+export function loadTracker () {
   populateUserDropdown();
   defaultDatePicker()
   // Add event listener for user selection
@@ -45,7 +45,7 @@ function populateUserDropdown() {
   userSelect.appendChild(defaultOption);
 
   // Populate dropdown with user options
-  let userName =["Rihanna", "Fatima", "Work", "Personal"]
+  let userName =["Rihanna", "Fatima", "David", "Personal"]
   users.forEach((userId) => {
     const option = document.createElement("option");
     option.value = userId;
@@ -60,7 +60,7 @@ function handleUserSelection(event) {
   const agendaDiv = document.getElementById("agenda");
 
   // Clear any previous content
-  agendaDiv.innerHTML = "";
+  agendaDiv.textContent = "";
 
   // If a user is selected, show the static message
   if (selectedUserId) {
@@ -68,7 +68,7 @@ function handleUserSelection(event) {
 
   }
   else {
-    document.getElementById('agenda').innerHTML = 'Please select a user.';
+    document.getElementById('agenda').textContent = 'Please select a user.';
   }
 }
 
