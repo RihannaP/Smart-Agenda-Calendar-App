@@ -29,10 +29,8 @@ export function getUserIds() {
    */
   export function addData(userId, data) {
     const key = `stored-data-user-${userId}`;
-  
     const existingData = getData(userId) || [];
     const newData = existingData.concat(data);
-  
     localStorage.setItem(key, JSON.stringify(newData));
   }
   
@@ -45,7 +43,8 @@ export function getUserIds() {
     localStorage.removeItem(`stored-data-user-${userId}`);
   }
 
-  export function clearTopic(userId, agenda) {
+  export function clearTopic(userId, index) {
+    const agenda = getData(userId);
+    agenda.splice(index, 1);
     localStorage.setItem(`stored-data-user-${userId}`, JSON.stringify(agenda));
-
-  }
+}

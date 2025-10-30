@@ -215,7 +215,7 @@ function displayAgenda(userId){
     deleteButtons.forEach(button => {
     button.addEventListener('click', function() {
       const index = button.getAttribute('data-index');
-      deleteTopic(userId, index);
+      handleDeleteTopic(userId, index);
     });
   });
   
@@ -231,16 +231,12 @@ function displayAgenda(userId){
  }
 
   // Function to delete a topic
-function deleteTopic(userId, index) {
-  const agenda = getData(userId);
-  
-  if (agenda && agenda.length > 0) {
-    agenda.splice(index, 1);
-    clearTopic(userId, agenda)
+function handleDeleteTopic(userId, index) {
+    clearTopic(userId, index)
     displayAgenda(userId);
     renderCalendar() 
     alert('Topic deleted successfully!');
   }
-}
 
-export { calculateFutureDates, formatDate, deleteTopic, handleUserSelection, populateUserDropdown, defaultDatePicker };
+
+export { calculateFutureDates, formatDate, handleDeleteTopic, handleUserSelection, populateUserDropdown, defaultDatePicker };
